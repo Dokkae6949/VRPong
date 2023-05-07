@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "at.kmve.xrtest",
+  "applicationId": "at.kmve.vrpong",
   "variantName": "debug",
   "elements": [
     {

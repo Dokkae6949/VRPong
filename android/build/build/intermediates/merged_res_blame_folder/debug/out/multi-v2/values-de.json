@@ -4,7 +4,7 @@
             "outputFile": "com.godot.game-mergeDebugResources-9:/values-de/values-de.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\finnl\\Documents\\.Personal\\Godot\\xrpong\\android\\build\\res\\values-de\\godot_project_name_string.xml",
+                    "source": "C:\\Users\\finnl\\Documents\\.Personal\\Godot\\VRPong\\android\\build\\res\\values-de\\godot_project_name_string.xml",
                     "from": {
                         "startLines": "3",
                         "startColumns": "1",
