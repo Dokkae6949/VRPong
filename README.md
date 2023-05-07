@@ -14,7 +14,7 @@ Once you have cloned the repository, you can open the project in Godot by select
 
 ## Branches
 
-We recommend that you use the `unstable` branch for development work. This branch contains the latest unstable version of the game, and it is where you can make changes and test new features. Once you have tested your changes and you are ready to release a new version, you can merge your changes into the `preview` for final testing.
+We recommend that you use the `testing` branch for development work. This branch contains the latest unstable version of the game, and it is where you can make changes and test new features. Once you have tested your changes and you are ready to release a new version, you can merge your changes into the `preview` for final testing.
 
 Please note that the `main` branch is only supposed to be pushed to as a final step, after all testing and development work has been completed.
 
