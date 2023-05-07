@@ -1,6 +1,6 @@
 # VRPong
 
-VRPong is a virtual reality (VR) game made with Godot game engine. The game is designed to be played with a VR headset and controllers, and it has been tested with popular VR systems such as Oculus Rift, HTC Vive, and Valve Index.
+VRPong is a virtual reality (VR) game made with Godot game engine. The game is designed to be played with a VR headset and controllers.
 
 ## Getting Started
 
