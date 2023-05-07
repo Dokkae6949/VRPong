@@ -1,0 +1,179 @@
+[gd_scene load_steps=24 format=3 uid="uid://dwej3g7d13pqt"]
+
+[ext_resource type="Script" path="res://project/main.gd" id="1_ce2cx"]
+[ext_resource type="Script" path="res://project/hands/Hand.gd" id="2_t7plb"]
+[ext_resource type="PackedScene" path="res://project/systems/interaction/interactor.tscn" id="3_eoc22"]
+[ext_resource type="PackedScene" uid="uid://u8o1mbyyclcv" path="res://project/ball/ball.tscn" id="4_4jdhm"]
+[ext_resource type="Script" path="res://project/ball/AudioStreamPlayer3D.gd" id="5_2h67u"]
+[ext_resource type="PackedScene" uid="uid://6e7mosxn84vl" path="res://project/goal/goal.tscn" id="5_67top"]
+[ext_resource type="AudioStream" uid="uid://ddwilhkraq5ac" path="res://project/ball/sfx/bounce.wav" id="5_q3m18"]
+[ext_resource type="PackedScene" uid="uid://c7b66ityktcp1" path="res://project/paddle/paddle.tscn" id="6_wina7"]
+[ext_resource type="Material" uid="uid://ddtdphln00s8g" path="res://project/wall.tres" id="7_xignf"]
+[ext_resource type="Script" path="res://project/paddle/ai.gd" id="9_h6x5q"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xdo8j"]
+
+[sub_resource type="Sky" id="Sky_qxx5g"]
+sky_material = SubResource("ProceduralSkyMaterial_xdo8j")
+
+[sub_resource type="Environment" id="Environment_xtvdd"]
+background_mode = 2
+sky = SubResource("Sky_qxx5g")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_oqd8q"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ncs2n"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rwx47"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_53bjc"]
+frequency = 0.195
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_prfvb"]
+width = 515
+normalize = false
+noise = SubResource("FastNoiseLite_53bjc")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r557i"]
+albedo_color = Color(0.27451, 0.592157, 0.305882, 1)
+metallic_specular = 0.15
+roughness = 0.9
+normal_enabled = true
+normal_scale = 0.3
+normal_texture = SubResource("NoiseTexture2D_prfvb")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3stli"]
+size = Vector3(0.1, 1.5, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_32p4t"]
+material = ExtResource("7_xignf")
+size = Vector3(0.1, 1.5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sm7e8"]
+size = Vector3(1.5, 0.1, 5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_75xcy"]
+material = ExtResource("7_xignf")
+size = Vector3(1.5, 0.1, 5)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_ce2cx")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+
+[node name="Camera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 0.992789, 0.119877, 0, -0.119877, 0.992789, -0.0344138, 1.7532, 0.185114)
+environment = SubResource("Environment_xtvdd")
+
+[node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.341401, 0, 0)
+tracker = &"left_hand"
+pose = &"aim"
+script = ExtResource("2_t7plb")
+
+[node name="Mesh" type="MeshInstance3D" parent="XROrigin3D/LeftHand"]
+mesh = SubResource("BoxMesh_oqd8q")
+
+[node name="Interactor" parent="XROrigin3D/LeftHand" instance=ExtResource("3_eoc22")]
+collision_layer = 512
+collision_mask = 1024
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/LeftHand/Interactor"]
+shape = SubResource("BoxShape3D_ncs2n")
+
+[node name="RightHand" type="XRController3D" parent="XROrigin3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.328269, 0, 0)
+tracker = &"right_hand"
+pose = &"aim"
+script = ExtResource("2_t7plb")
+
+[node name="Mesh" type="MeshInstance3D" parent="XROrigin3D/RightHand"]
+mesh = SubResource("BoxMesh_oqd8q")
+skeleton = NodePath("../../LeftHand")
+
+[node name="Interactor" parent="XROrigin3D/RightHand" instance=ExtResource("3_eoc22")]
+collision_layer = 512
+collision_mask = 1024
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/RightHand/Interactor"]
+shape = SubResource("BoxShape3D_ncs2n")
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
+mesh = SubResource("PlaneMesh_rwx47")
+surface_material_override/0 = SubResource("StandardMaterial3D_r557i")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.727258, 0.686364, 0, -0.686364, 0.727258, 0, 0, 0)
+light_energy = 1.2
+
+[node name="Ball" parent="." instance=ExtResource("4_4jdhm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+velocity = Vector3(1, -0.5, -1)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Ball"]
+stream = ExtResource("5_q3m18")
+attenuation_model = 2
+volume_db = -50.0
+pitch_scale = 0.9
+script = ExtResource("5_2h67u")
+
+[node name="Goal" parent="." instance=ExtResource("5_67top")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 2.5)
+
+[node name="PaddlePlayer" parent="Goal" instance=ExtResource("6_wina7")]
+
+[node name="Goal2" parent="." instance=ExtResource("5_67top")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
+
+[node name="PaddleAI" parent="Goal2" instance=ExtResource("6_wina7")]
+script = ExtResource("9_h6x5q")
+bounce_enabled = false
+
+[node name="Tube" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Wall1" type="StaticBody3D" parent="Tube" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tube/Wall1"]
+shape = SubResource("BoxShape3D_3stli")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tube/Wall1"]
+mesh = SubResource("BoxMesh_32p4t")
+
+[node name="Wall2" type="StaticBody3D" parent="Tube" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tube/Wall2"]
+shape = SubResource("BoxShape3D_3stli")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tube/Wall2"]
+mesh = SubResource("BoxMesh_32p4t")
+
+[node name="Wall3" type="StaticBody3D" parent="Tube" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tube/Wall3"]
+shape = SubResource("BoxShape3D_sm7e8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tube/Wall3"]
+mesh = SubResource("BoxMesh_75xcy")
+
+[node name="Wall4" type="StaticBody3D" parent="Tube" groups=["Wall"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Tube/Wall4"]
+shape = SubResource("BoxShape3D_sm7e8")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Tube/Wall4"]
+mesh = SubResource("BoxMesh_75xcy")
+
+[connection signal="button_pressed" from="XROrigin3D/RightHand" to="." method="_on_right_hand_button_pressed"]
+[connection signal="body_collided" from="Ball" to="Ball/AudioStreamPlayer3D" method="_on_ball_body_collided"]

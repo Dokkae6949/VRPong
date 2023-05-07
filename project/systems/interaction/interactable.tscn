@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://project/systems/interaction/interactable.gd" id="1_txh3o"]
+
+[node name="Interactable" type="Area3D" groups=["Interactable"]]
+script = ExtResource("1_txh3o")

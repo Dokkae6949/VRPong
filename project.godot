@@ -1,0 +1,43 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="VRPong"
+run/main_scene="res://project/main.tscn"
+config/features=PackedStringArray("4.0", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/BounceBody3D/plugin.cfg")
+
+[layer_names]
+
+3d_physics/layer_10="Interactor"
+3d_physics/layer_11="Interactable"
+
+[physics]
+
+3d/default_linear_damp=0.0
+3d/default_angular_damp=0.0
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_s3tc_bptc=false
+textures/vram_compression/import_etc2_astc=true
+anti_aliasing/quality/msaa_3d=2
+
+[xr]
+
+openxr/enabled=true
+shaders/enabled=true

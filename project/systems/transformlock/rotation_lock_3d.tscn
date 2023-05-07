@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://61fce3mbjr5a"]
+
+[ext_resource type="Script" path="res://project/systems/transformlock/RotationLock3D.gd" id="1_0urly"]
+
+[node name="RotationLock3D" type="Node3D"]
+script = ExtResource("1_0urly")
