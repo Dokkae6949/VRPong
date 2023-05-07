@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dwej3g7d13pqt"]
+[gd_scene load_steps=25 format=3 uid="uid://dwej3g7d13pqt"]
 
 [ext_resource type="Script" path="res://project/main.gd" id="1_ce2cx"]
 [ext_resource type="Script" path="res://project/hands/Hand.gd" id="2_t7plb"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c7b66ityktcp1" path="res://project/paddle/paddle.tscn" id="6_wina7"]
 [ext_resource type="Material" uid="uid://ddtdphln00s8g" path="res://project/wall.tres" id="7_xignf"]
 [ext_resource type="Script" path="res://project/paddle/ai.gd" id="9_h6x5q"]
+[ext_resource type="Script" path="res://project/paddle/paddle.gd" id="9_i11ms"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xdo8j"]
 
@@ -128,6 +129,8 @@ script = ExtResource("5_2h67u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 2.5)
 
 [node name="PaddlePlayer" parent="Goal" instance=ExtResource("6_wina7")]
+script = ExtResource("9_i11ms")
+dampening = 0.005
 
 [node name="Goal2" parent="." instance=ExtResource("5_67top")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
