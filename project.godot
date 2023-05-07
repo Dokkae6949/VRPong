@@ -21,6 +21,7 @@ window/size/viewport_width=4320
 window/size/viewport_height=2160
 window/size/window_width_override=800
 window/size/window_height_override=400
+window/vsync/vsync_mode=0
 
 [editor_plugins]
 
