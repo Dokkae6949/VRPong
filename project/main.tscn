@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dwej3g7d13pqt"]
+[gd_scene load_steps=26 format=3 uid="uid://dwej3g7d13pqt"]
 
 [ext_resource type="Script" path="res://project/main.gd" id="1_ce2cx"]
 [ext_resource type="Script" path="res://project/hands/Hand.gd" id="2_t7plb"]
@@ -11,6 +11,7 @@
 [ext_resource type="Material" uid="uid://ddtdphln00s8g" path="res://project/wall.tres" id="7_xignf"]
 [ext_resource type="Script" path="res://project/paddle/ai.gd" id="9_h6x5q"]
 [ext_resource type="Script" path="res://project/paddle/paddle.gd" id="9_i11ms"]
+[ext_resource type="Script" path="res://project/FPSCounter.gd" id="12_taqnb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xdo8j"]
 
@@ -177,6 +178,11 @@ shape = SubResource("BoxShape3D_sm7e8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Tube/Wall4"]
 mesh = SubResource("BoxMesh_75xcy")
+
+[node name="FPSCounter" type="Label3D" parent="."]
+transform = Transform3D(0.64244, 0, 0.766336, 0, 1, 0, -0.766336, 0, 0.64244, -1.24829, 1.39163, 2.84285)
+text = "90 fps"
+script = ExtResource("12_taqnb")
 
 [connection signal="button_pressed" from="XROrigin3D/RightHand" to="." method="_on_right_hand_button_pressed"]
 [connection signal="body_collided" from="Ball" to="Ball/AudioStreamPlayer3D" method="_on_ball_body_collided"]
