@@ -37,13 +37,13 @@ func _on_interactable_on_grab_disabled() -> void:
 
 [sub_resource type="BoxMesh" id="BoxMesh_o7qfg"]
 material = ExtResource("2_chbli")
-size = Vector3(0.45, 0.2, 0.05)
+size = Vector3(0.25, 0.25, 0.05)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_op2wg"]
-size = Vector3(0.45, 0.2, 0.05)
+size = Vector3(0.25, 0.25, 0.05)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s04sn"]
-size = Vector3(0.45, 0.2, 0.05)
+size = Vector3(0.25, 0.25, 0.05)
 
 [node name="Paddle" type="StaticBody3D" groups=["Paddle"]]
 script = SubResource("GDScript_m7gba")
