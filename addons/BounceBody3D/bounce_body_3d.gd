@@ -18,6 +18,8 @@ func set_processing_type(type: ProcessingType) -> void:
 	else:
 		set_process(false)
 		set_physics_process(true)
+		
+	processing_type = type
 
 
 func _process(delta: float) -> void:
