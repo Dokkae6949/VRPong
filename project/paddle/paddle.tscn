@@ -55,6 +55,14 @@ interpolation_target_path = NodePath("Mesh")
 [node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_o7qfg")
 
+[node name="AxisLock3D" parent="Mesh" instance=ExtResource("3_6n7ca")]
+lock_z = true
+
+[node name="RotationLock3D" parent="Mesh" instance=ExtResource("4_8wylw")]
+lock_x = true
+lock_y = true
+lock_z = true
+
 [node name="Collider" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_op2wg")
 
