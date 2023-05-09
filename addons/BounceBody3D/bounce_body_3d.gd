@@ -11,15 +11,15 @@ enum ProcessingType {PHYSICS, NORMAL}
 @export var processing_type: ProcessingType : set = set_processing_type
 
 
-func set_processing_type(type: ProcessingType) -> void:
-	if type == ProcessingType.NORMAL:
+func set_processing_type(value: ProcessingType) -> void:
+	processing_type = value
+	
+	if processing_type == ProcessingType.NORMAL:
 		set_process(true)
 		set_physics_process(false)
 	else:
 		set_process(false)
 		set_physics_process(true)
-		
-	processing_type = type
 
 
 func _process(delta: float) -> void:
