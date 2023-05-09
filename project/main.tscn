@@ -50,18 +50,18 @@ normal_scale = 0.3
 normal_texture = SubResource("NoiseTexture2D_prfvb")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3stli"]
-size = Vector3(0.1, 1.5, 5)
+size = Vector3(0.1, 2, 5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_32p4t"]
 material = ExtResource("7_xignf")
-size = Vector3(0.1, 1.5, 5)
+size = Vector3(0.1, 2, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sm7e8"]
-size = Vector3(1.5, 0.1, 5)
+size = Vector3(3.5, 0.1, 5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_75xcy"]
 material = ExtResource("7_xignf")
-size = Vector3(1.5, 0.1, 5)
+size = Vector3(3.5, 0.1, 5)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_ce2cx")
@@ -117,7 +117,7 @@ light_energy = 1.2
 
 [node name="Ball" parent="." instance=ExtResource("4_4jdhm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-velocity = Vector3(1, -0.5, -1)
+velocity = Vector3(1, -0.5, -3)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Ball"]
 stream = ExtResource("5_q3m18")
@@ -132,6 +132,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 2.5)
 [node name="PaddlePlayer" parent="Goal" instance=ExtResource("6_wina7")]
 script = ExtResource("9_i11ms")
 dampening = 0.005
+interpolation_enabled = null
+interpolation_target_path = null
 
 [node name="Goal2" parent="." instance=ExtResource("5_67top")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
@@ -139,12 +141,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
 [node name="PaddleAI" parent="Goal2" instance=ExtResource("6_wina7")]
 script = ExtResource("9_h6x5q")
 bounce_enabled = false
+interpolation_enabled = null
+interpolation_target_path = null
 
 [node name="Tube" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Wall1" type="StaticBody3D" parent="Tube" groups=["Wall"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tube/Wall1"]
 shape = SubResource("BoxShape3D_3stli")
@@ -153,7 +157,7 @@ shape = SubResource("BoxShape3D_3stli")
 mesh = SubResource("BoxMesh_32p4t")
 
 [node name="Wall2" type="StaticBody3D" parent="Tube" groups=["Wall"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tube/Wall2"]
 shape = SubResource("BoxShape3D_3stli")
@@ -162,7 +166,7 @@ shape = SubResource("BoxShape3D_3stli")
 mesh = SubResource("BoxMesh_32p4t")
 
 [node name="Wall3" type="StaticBody3D" parent="Tube" groups=["Wall"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tube/Wall3"]
 shape = SubResource("BoxShape3D_sm7e8")
@@ -171,7 +175,7 @@ shape = SubResource("BoxShape3D_sm7e8")
 mesh = SubResource("BoxMesh_75xcy")
 
 [node name="Wall4" type="StaticBody3D" parent="Tube" groups=["Wall"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tube/Wall4"]
 shape = SubResource("BoxShape3D_sm7e8")
@@ -180,7 +184,7 @@ shape = SubResource("BoxShape3D_sm7e8")
 mesh = SubResource("BoxMesh_75xcy")
 
 [node name="FPSCounter" type="Label3D" parent="."]
-transform = Transform3D(0.64244, 0, 0.766336, 0, 1, 0, -0.766336, 0, 0.64244, -1.24829, 1.39163, 2.84285)
+transform = Transform3D(0.777053, 0.493767, 0.390362, -0.0268901, 0.645653, -0.763157, -0.62886, 0.582517, 0.514984, -1.44006, 2.65259, 2.74614)
 text = "90 fps"
 script = ExtResource("12_taqnb")
 

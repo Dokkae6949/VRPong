@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://c7b66ityktcp1"]
+[gd_scene load_steps=10 format=3 uid="uid://c7b66ityktcp1"]
 
+[ext_resource type="Script" path="res://addons/PhysicsInterpolator3D/physics_interpolator_3d.gd" id="1_aylvr"]
 [ext_resource type="Material" uid="uid://bxxwi8xhl631y" path="res://project/paddle/mat.tres" id="2_chbli"]
 [ext_resource type="PackedScene" path="res://project/systems/transformlock/axis_lock_3d.tscn" id="3_6n7ca"]
 [ext_resource type="PackedScene" uid="uid://61fce3mbjr5a" path="res://project/systems/transformlock/rotation_lock_3d.tscn" id="4_8wylw"]
@@ -37,19 +38,30 @@ func _on_interactable_on_grab_disabled() -> void:
 
 [sub_resource type="BoxMesh" id="BoxMesh_o7qfg"]
 material = ExtResource("2_chbli")
-size = Vector3(0.45, 0.2, 0.05)
+size = Vector3(0.25, 0.25, 0.05)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_op2wg"]
-size = Vector3(0.45, 0.2, 0.05)
+size = Vector3(0.25, 0.25, 0.05)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_s04sn"]
-size = Vector3(0.45, 0.2, 0.05)
+size = Vector3(0.25, 0.25, 0.05)
 
 [node name="Paddle" type="StaticBody3D" groups=["Paddle"]]
 script = SubResource("GDScript_m7gba")
+interpolation_enabled = null
+interpolation = 1
+interpolation_target_path = NodePath("Mesh")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_o7qfg")
+
+[node name="AxisLock3D" parent="Mesh" instance=ExtResource("3_6n7ca")]
+lock_z = true
+
+[node name="RotationLock3D" parent="Mesh" instance=ExtResource("4_8wylw")]
+lock_x = true
+lock_y = true
+lock_z = true
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_op2wg")
@@ -61,6 +73,11 @@ lock_z = true
 lock_x = true
 lock_y = true
 lock_z = true
+
+[node name="PhysicsInterpolator3D" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("1_aylvr")
+interpolation = 1
+target = NodePath("../Mesh")
 
 [node name="Interactable" parent="." instance=ExtResource("4_s2xpn")]
 collision_layer = 1024
