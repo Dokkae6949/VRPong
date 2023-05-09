@@ -43,23 +43,29 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	_interpolate_transform()
+
+func _physics_process(_delta: float) -> void:
+	_update_transform()
+
+
+func _interpolate_transform() -> void:
+	if target == null:
+		return
+	
 	var f := Engine.get_physics_interpolation_fraction()
 	var newTransform := Transform3D()
 	
 	# translate
 	if get_interpolation_flag(INTERPOLATE_POSITION):
 		var posDelta = currTransform.origin - prevTransform.origin
-		newTransform = prevTransform + (posDelta * f)
+		newTransform.origin = prevTransform.origin + (posDelta * f)
 	
 	# rotate
 	if get_interpolation_flag(INTERPOLATE_ROTATION):
 		newTransform.basis = prevTransform.basis.slerp(currTransform.basis, f)
 	
 	transform = newTransform
-
-func _physics_process(_delta: float) -> void:
-	_update_transform()
-
 
 func _update_transform() -> void:
 	if target == null:

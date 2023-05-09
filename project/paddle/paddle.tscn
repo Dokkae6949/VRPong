@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://c7b66ityktcp1"]
+[gd_scene load_steps=10 format=3 uid="uid://c7b66ityktcp1"]
 
+[ext_resource type="Script" path="res://addons/PhysicsInterpolator3D/physics_interpolator_3d.gd" id="1_aylvr"]
 [ext_resource type="Material" uid="uid://bxxwi8xhl631y" path="res://project/paddle/mat.tres" id="2_chbli"]
 [ext_resource type="PackedScene" path="res://project/systems/transformlock/axis_lock_3d.tscn" id="3_6n7ca"]
 [ext_resource type="PackedScene" uid="uid://61fce3mbjr5a" path="res://project/systems/transformlock/rotation_lock_3d.tscn" id="4_8wylw"]
@@ -47,6 +48,11 @@ size = Vector3(0.25, 0.25, 0.05)
 
 [node name="Paddle" type="StaticBody3D" groups=["Paddle"]]
 script = SubResource("GDScript_m7gba")
+
+[node name="PhysicsInterpolator3D" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("1_aylvr")
+interpolation = 1
+target = NodePath("../Mesh")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_o7qfg")
