@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" path="res://project/main.gd" id="1_ce2cx"]
 [ext_resource type="Script" path="res://project/hands/Hand.gd" id="2_t7plb"]
+[ext_resource type="Environment" uid="uid://2lm6orbh10jp" path="res://project/environment.tres" id="2_ufra6"]
 [ext_resource type="PackedScene" path="res://project/systems/interaction/interactor.tscn" id="3_eoc22"]
+[ext_resource type="Sky" uid="uid://clqf07qav41sb" path="res://project/skybox.tres" id="3_fvp0n"]
 [ext_resource type="PackedScene" uid="uid://u8o1mbyyclcv" path="res://project/ball/ball.tscn" id="4_4jdhm"]
 [ext_resource type="Script" path="res://project/ball/AudioStreamPlayer3D.gd" id="5_2h67u"]
 [ext_resource type="PackedScene" uid="uid://6e7mosxn84vl" path="res://project/goal/goal.tscn" id="5_67top"]
@@ -13,17 +15,16 @@
 [ext_resource type="Script" path="res://project/paddle/paddle.gd" id="9_i11ms"]
 [ext_resource type="Script" path="res://project/FPSCounter.gd" id="12_taqnb"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xdo8j"]
-
-[sub_resource type="Sky" id="Sky_qxx5g"]
-sky_material = SubResource("ProceduralSkyMaterial_xdo8j")
-
 [sub_resource type="Environment" id="Environment_xtvdd"]
 background_mode = 2
-sky = SubResource("Sky_qxx5g")
+sky = ExtResource("3_fvp0n")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_sky_contribution = 0.0
+glow_intensity = 1.09
+fog_light_color = Color(0.419608, 0.152941, 0.352941, 1)
+fog_light_energy = 1.5
+fog_density = 0.1
 
 [sub_resource type="BoxMesh" id="BoxMesh_oqd8q"]
 size = Vector3(0.1, 0.1, 0.1)
@@ -42,7 +43,7 @@ normalize = false
 noise = SubResource("FastNoiseLite_53bjc")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r557i"]
-albedo_color = Color(0.27451, 0.592157, 0.305882, 1)
+albedo_color = Color(0.101961, 0, 0.137255, 1)
 metallic_specular = 0.15
 roughness = 0.9
 normal_enabled = true
@@ -65,6 +66,13 @@ size = Vector3(3.5, 0.1, 5)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_ce2cx")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_ufra6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.727258, 0.686364, 0, -0.686364, 0.727258, 0, 0, 0)
+light_energy = 1.042
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
@@ -111,10 +119,6 @@ transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
 mesh = SubResource("PlaneMesh_rwx47")
 surface_material_override/0 = SubResource("StandardMaterial3D_r557i")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.727258, 0.686364, 0, -0.686364, 0.727258, 0, 0, 0)
-light_energy = 1.2
-
 [node name="Ball" parent="." instance=ExtResource("4_4jdhm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 velocity = Vector3(1, -0.5, -3)
@@ -132,8 +136,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 2.5)
 [node name="PaddlePlayer" parent="Goal" instance=ExtResource("6_wina7")]
 script = ExtResource("9_i11ms")
 dampening = 0.005
-interpolation_enabled = null
-interpolation_target_path = null
 
 [node name="Goal2" parent="." instance=ExtResource("5_67top")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
@@ -141,8 +143,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
 [node name="PaddleAI" parent="Goal2" instance=ExtResource("6_wina7")]
 script = ExtResource("9_h6x5q")
 bounce_enabled = false
-interpolation_enabled = null
-interpolation_target_path = null
 
 [node name="Tube" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
