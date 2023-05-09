@@ -4,7 +4,7 @@ extends BounceBody3D
 @onready var ball = $"../../Ball"
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var target: Vector3 = ball.global_position
 	target.z = global_position.z
 	

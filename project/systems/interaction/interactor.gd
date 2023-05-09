@@ -38,12 +38,12 @@ func disable_grab():
 
 func _on_area_entered(area: Area3D) -> void:
 	if area is Interactable:
-		area as Interactable
+		area = area as Interactable
 		
 		interactables.append(area)
 
 func _on_area_exited(area: Area3D) -> void:
-	area as Interactable
+	area = area as Interactable
 	
 	var i = interactables.find(area)
 	
