@@ -34,6 +34,8 @@ enabled=PackedStringArray("res://addons/BounceBody3D/plugin.cfg")
 
 [physics]
 
+common/physics_ticks_per_second=90
+common/max_physics_steps_per_frame=11
 3d/default_linear_damp=0.0
 3d/default_angular_damp=0.0
 
