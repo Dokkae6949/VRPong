@@ -132,6 +132,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 2.5)
 [node name="PaddlePlayer" parent="Goal" instance=ExtResource("6_wina7")]
 script = ExtResource("9_i11ms")
 dampening = 0.005
+interpolation_enabled = null
+interpolation_target_path = null
 
 [node name="Goal2" parent="." instance=ExtResource("5_67top")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
@@ -139,6 +141,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
 [node name="PaddleAI" parent="Goal2" instance=ExtResource("6_wina7")]
 script = ExtResource("9_h6x5q")
 bounce_enabled = false
+interpolation_enabled = null
+interpolation_target_path = null
 
 [node name="Tube" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)

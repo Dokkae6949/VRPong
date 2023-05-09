@@ -31,11 +31,10 @@ func _ready() -> void:
 		printerr("No interpolation target found.")
 		return
 	
-	prevTransform = Transform3D()
-	currTransform = Transform3D()
+	prevTransform = global_transform
+	currTransform = global_transform
 	
 	process_priority = 100
-	top_level = true
 	Engine.physics_jitter_fix = 0.0
 	
 	set_process(enabled)
@@ -54,22 +53,19 @@ func _interpolate_transform() -> void:
 		return
 	
 	var f := Engine.get_physics_interpolation_fraction()
-	var newTransform := Transform3D()
 	
 	# translate
 	if get_interpolation_flag(INTERPOLATE_POSITION):
 		var posDelta = currTransform.origin - prevTransform.origin
-		newTransform.origin = prevTransform.origin + (posDelta * f)
+		target.global_transform.origin = prevTransform.origin.lerp(currTransform.origin, f)
 	
 	# rotate
 	if get_interpolation_flag(INTERPOLATE_ROTATION):
-		newTransform.basis = prevTransform.basis.slerp(currTransform.basis, f)
-	
-	transform = newTransform
+		target.global_transform.basis = prevTransform.basis.slerp(currTransform.basis, f)
 
 func _update_transform() -> void:
 	if target == null:
 		return
 	
 	prevTransform = currTransform
-	currTransform = target.global_transform
+	currTransform = global_transform

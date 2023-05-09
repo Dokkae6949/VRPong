@@ -48,11 +48,9 @@ size = Vector3(0.25, 0.25, 0.05)
 
 [node name="Paddle" type="StaticBody3D" groups=["Paddle"]]
 script = SubResource("GDScript_m7gba")
-
-[node name="PhysicsInterpolator3D" type="Node3D" parent="." node_paths=PackedStringArray("target")]
-script = ExtResource("1_aylvr")
+interpolation_enabled = null
 interpolation = 1
-target = NodePath("../Mesh")
+interpolation_target_path = NodePath("Mesh")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_o7qfg")
@@ -67,6 +65,11 @@ lock_z = true
 lock_x = true
 lock_y = true
 lock_z = true
+
+[node name="PhysicsInterpolator3D" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("1_aylvr")
+interpolation = 1
+target = NodePath("../Mesh")
 
 [node name="Interactable" parent="." instance=ExtResource("4_s2xpn")]
 collision_layer = 1024

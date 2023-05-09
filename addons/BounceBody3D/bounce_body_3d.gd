@@ -4,29 +4,25 @@ class_name BounceBody3D
 
 signal body_collided(body: Node)
 
+const INTERPOLATE_POSITION := 1
+const INTERPOLATE_ROTATION := 2
+
 enum ProcessingType {PHYSICS, NORMAL}
 
 @export var bounce_enabled := true
+
+@export_subgroup("Simulation")
+@export var processing_type: ProcessingType
 @export var velocity: Vector3
-@export var processing_type: ProcessingType : set = set_processing_type
-
-
-func set_processing_type(value: ProcessingType) -> void:
-	processing_type = value
-	
-	if processing_type == ProcessingType.NORMAL:
-		set_process(true)
-		set_physics_process(false)
-	else:
-		set_process(false)
-		set_physics_process(true)
 
 
 func _process(delta: float) -> void:
-	_update(delta)
+	if processing_type == ProcessingType.NORMAL:
+		_update(delta)
 
 func _physics_process(delta: float) -> void:
-	_update(delta)
+	if processing_type == ProcessingType.PHYSICS:
+		_update(delta)
 
 
 func _update(delta: float) -> void:
