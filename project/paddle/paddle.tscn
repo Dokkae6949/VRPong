@@ -48,6 +48,9 @@ size = Vector3(0.25, 0.25, 0.05)
 
 [node name="Paddle" type="StaticBody3D" groups=["Paddle"]]
 script = SubResource("GDScript_m7gba")
+interpolation_enabled = null
+interpolation = 1
+interpolation_target_path = NodePath("Mesh")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_o7qfg")
