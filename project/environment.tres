@@ -1,0 +1,7 @@
+[gd_resource type="Environment" load_steps=2 format=3 uid="uid://2lm6orbh10jp"]
+
+[ext_resource type="Sky" uid="uid://clqf07qav41sb" path="res://project/skybox.tres" id="1_6rdsg"]
+
+[resource]
+background_mode = 2
+sky = ExtResource("1_6rdsg")

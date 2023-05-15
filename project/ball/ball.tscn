@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://u8o1mbyyclcv"]
+[gd_scene load_steps=8 format=3 uid="uid://u8o1mbyyclcv"]
 
 [ext_resource type="Script" path="res://addons/BounceBody3D/bounce_body_3d.gd" id="1_j4k10"]
+[ext_resource type="Script" path="res://addons/PhysicsInterpolator3D/physics_interpolator_3d.gd" id="2_ujivj"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_lh6n6"]
 noise_type = 4
@@ -35,3 +36,8 @@ mesh = SubResource("BoxMesh_ew6rn")
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_4e423")
+
+[node name="PhysicsInterpolator3D" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("2_ujivj")
+interpolation = 1
+target = NodePath("../Mesh")

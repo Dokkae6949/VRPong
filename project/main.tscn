@@ -1,8 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://dwej3g7d13pqt"]
+[gd_scene load_steps=26 format=3 uid="uid://dwej3g7d13pqt"]
 
 [ext_resource type="Script" path="res://project/main.gd" id="1_ce2cx"]
 [ext_resource type="Script" path="res://project/hands/Hand.gd" id="2_t7plb"]
+[ext_resource type="Environment" uid="uid://2lm6orbh10jp" path="res://project/environment.tres" id="2_ufra6"]
 [ext_resource type="PackedScene" path="res://project/systems/interaction/interactor.tscn" id="3_eoc22"]
+[ext_resource type="Sky" uid="uid://clqf07qav41sb" path="res://project/skybox.tres" id="3_fvp0n"]
 [ext_resource type="PackedScene" uid="uid://u8o1mbyyclcv" path="res://project/ball/ball.tscn" id="4_4jdhm"]
 [ext_resource type="Script" path="res://project/ball/AudioStreamPlayer3D.gd" id="5_2h67u"]
 [ext_resource type="PackedScene" uid="uid://6e7mosxn84vl" path="res://project/goal/goal.tscn" id="5_67top"]
@@ -10,18 +12,19 @@
 [ext_resource type="PackedScene" uid="uid://c7b66ityktcp1" path="res://project/paddle/paddle.tscn" id="6_wina7"]
 [ext_resource type="Material" uid="uid://ddtdphln00s8g" path="res://project/wall.tres" id="7_xignf"]
 [ext_resource type="Script" path="res://project/paddle/ai.gd" id="9_h6x5q"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xdo8j"]
-
-[sub_resource type="Sky" id="Sky_qxx5g"]
-sky_material = SubResource("ProceduralSkyMaterial_xdo8j")
+[ext_resource type="Script" path="res://project/paddle/paddle.gd" id="9_i11ms"]
+[ext_resource type="Script" path="res://project/FPSCounter.gd" id="12_taqnb"]
 
 [sub_resource type="Environment" id="Environment_xtvdd"]
 background_mode = 2
-sky = SubResource("Sky_qxx5g")
+sky = ExtResource("3_fvp0n")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_sky_contribution = 0.0
+glow_intensity = 1.09
+fog_light_color = Color(0.419608, 0.152941, 0.352941, 1)
+fog_light_energy = 1.5
+fog_density = 0.1
 
 [sub_resource type="BoxMesh" id="BoxMesh_oqd8q"]
 size = Vector3(0.1, 0.1, 0.1)
@@ -40,7 +43,7 @@ normalize = false
 noise = SubResource("FastNoiseLite_53bjc")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r557i"]
-albedo_color = Color(0.27451, 0.592157, 0.305882, 1)
+albedo_color = Color(0.101961, 0, 0.137255, 1)
 metallic_specular = 0.15
 roughness = 0.9
 normal_enabled = true
@@ -48,21 +51,28 @@ normal_scale = 0.3
 normal_texture = SubResource("NoiseTexture2D_prfvb")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_3stli"]
-size = Vector3(0.1, 1.5, 5)
+size = Vector3(0.1, 2, 5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_32p4t"]
 material = ExtResource("7_xignf")
-size = Vector3(0.1, 1.5, 5)
+size = Vector3(0.1, 2, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sm7e8"]
-size = Vector3(1.5, 0.1, 5)
+size = Vector3(3.5, 0.1, 5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_75xcy"]
 material = ExtResource("7_xignf")
-size = Vector3(1.5, 0.1, 5)
+size = Vector3(3.5, 0.1, 5)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_ce2cx")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_ufra6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.727258, 0.686364, 0, -0.686364, 0.727258, 0, 0, 0)
+light_energy = 1.042
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
@@ -109,13 +119,9 @@ transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
 mesh = SubResource("PlaneMesh_rwx47")
 surface_material_override/0 = SubResource("StandardMaterial3D_r557i")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.727258, 0.686364, 0, -0.686364, 0.727258, 0, 0, 0)
-light_energy = 1.2
-
 [node name="Ball" parent="." instance=ExtResource("4_4jdhm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-velocity = Vector3(1, -0.5, -1)
+velocity = Vector3(1, -0.5, -3)
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Ball"]
 stream = ExtResource("5_q3m18")
@@ -128,6 +134,8 @@ script = ExtResource("5_2h67u")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 2.5)
 
 [node name="PaddlePlayer" parent="Goal" instance=ExtResource("6_wina7")]
+script = ExtResource("9_i11ms")
+dampening = 0.005
 
 [node name="Goal2" parent="." instance=ExtResource("5_67top")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
@@ -140,7 +148,7 @@ bounce_enabled = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Wall1" type="StaticBody3D" parent="Tube" groups=["Wall"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tube/Wall1"]
 shape = SubResource("BoxShape3D_3stli")
@@ -149,7 +157,7 @@ shape = SubResource("BoxShape3D_3stli")
 mesh = SubResource("BoxMesh_32p4t")
 
 [node name="Wall2" type="StaticBody3D" parent="Tube" groups=["Wall"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tube/Wall2"]
 shape = SubResource("BoxShape3D_3stli")
@@ -158,7 +166,7 @@ shape = SubResource("BoxShape3D_3stli")
 mesh = SubResource("BoxMesh_32p4t")
 
 [node name="Wall3" type="StaticBody3D" parent="Tube" groups=["Wall"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tube/Wall3"]
 shape = SubResource("BoxShape3D_sm7e8")
@@ -167,13 +175,18 @@ shape = SubResource("BoxShape3D_sm7e8")
 mesh = SubResource("BoxMesh_75xcy")
 
 [node name="Wall4" type="StaticBody3D" parent="Tube" groups=["Wall"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Tube/Wall4"]
 shape = SubResource("BoxShape3D_sm7e8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Tube/Wall4"]
 mesh = SubResource("BoxMesh_75xcy")
+
+[node name="FPSCounter" type="Label3D" parent="."]
+transform = Transform3D(0.777053, 0.493767, 0.390362, -0.0268901, 0.645653, -0.763157, -0.62886, 0.582517, 0.514984, -1.44006, 2.65259, 2.74614)
+text = "90 fps"
+script = ExtResource("12_taqnb")
 
 [connection signal="button_pressed" from="XROrigin3D/RightHand" to="." method="_on_right_hand_button_pressed"]
 [connection signal="body_collided" from="Ball" to="Ball/AudioStreamPlayer3D" method="_on_ball_body_collided"]
