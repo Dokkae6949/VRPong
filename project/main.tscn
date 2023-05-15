@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dwej3g7d13pqt"]
+[gd_scene load_steps=28 format=3 uid="uid://dwej3g7d13pqt"]
 
 [ext_resource type="Script" path="res://project/main.gd" id="1_ce2cx"]
 [ext_resource type="Script" path="res://project/hands/Hand.gd" id="2_t7plb"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" path="res://project/paddle/ai.gd" id="9_h6x5q"]
 [ext_resource type="Script" path="res://project/paddle/paddle.gd" id="9_i11ms"]
 [ext_resource type="Script" path="res://project/FPSCounter.gd" id="12_taqnb"]
+[ext_resource type="Script" path="res://project/AudioVisualizer.gd" id="15_wfnmi"]
+[ext_resource type="AudioStream" uid="uid://bh0qhv3u7f7tu" path="res://project/TestSong.wav" id="16_i8vq2"]
 
 [sub_resource type="Environment" id="Environment_xtvdd"]
 background_mode = 2
@@ -187,6 +189,17 @@ mesh = SubResource("BoxMesh_75xcy")
 transform = Transform3D(0.777053, 0.493767, 0.390362, -0.0268901, 0.645653, -0.763157, -0.62886, 0.582517, 0.514984, -1.44006, 2.65259, 2.74614)
 text = "90 fps"
 script = ExtResource("12_taqnb")
+
+[node name="AudioVisualizer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
+script = ExtResource("15_wfnmi")
+target_bus = "Master"
+max_frequency = 2000.0
+min_db = 100.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_i8vq2")
+autoplay = true
 
 [connection signal="button_pressed" from="XROrigin3D/RightHand" to="." method="_on_right_hand_button_pressed"]
 [connection signal="body_collided" from="Ball" to="Ball/AudioStreamPlayer3D" method="_on_ball_body_collided"]
