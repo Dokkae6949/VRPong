@@ -1,21 +1,21 @@
 [gd_scene load_steps=5 format=3 uid="uid://6e7mosxn84vl"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_3yw7e"]
-size = Vector3(0.1, 1.5, 0.1)
+size = Vector3(0.1, 2, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kyx21"]
-size = Vector3(0.1, 1.5, 0.1)
+size = Vector3(0.1, 2, 0.1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_7vexh"]
-size = Vector3(1.5, 0.1, 0.1)
+size = Vector3(3.5, 0.1, 0.1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y4xl2"]
-size = Vector3(1.5, 0.1, 0.1)
+size = Vector3(3.5, 0.1, 0.1)
 
 [node name="Goal" type="Node3D"]
 
 [node name="BorderL" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0, 0)
 axis_lock_linear_x = true
 axis_lock_linear_y = true
 axis_lock_linear_z = true
@@ -30,7 +30,7 @@ mesh = SubResource("BoxMesh_3yw7e")
 shape = SubResource("BoxShape3D_kyx21")
 
 [node name="BorderR" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, 0, 0)
 axis_lock_linear_x = true
 axis_lock_linear_y = true
 axis_lock_linear_z = true
@@ -45,7 +45,7 @@ mesh = SubResource("BoxMesh_3yw7e")
 shape = SubResource("BoxShape3D_kyx21")
 
 [node name="BorderT" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 axis_lock_linear_x = true
 axis_lock_linear_y = true
 axis_lock_linear_z = true
@@ -60,7 +60,7 @@ mesh = SubResource("BoxMesh_7vexh")
 shape = SubResource("BoxShape3D_y4xl2")
 
 [node name="BorderB" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 axis_lock_linear_x = true
 axis_lock_linear_y = true
 axis_lock_linear_z = true
