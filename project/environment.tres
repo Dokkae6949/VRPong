@@ -1,7 +1,15 @@
-[gd_resource type="Environment" load_steps=2 format=3 uid="uid://2lm6orbh10jp"]
+[gd_resource type="Environment" load_steps=2 format=3 uid="uid://c0bsojkoh4re3"]
 
 [ext_resource type="Sky" uid="uid://clqf07qav41sb" path="res://project/skybox.tres" id="1_6rdsg"]
 
 [resource]
-background_mode = 2
+background_mode = 1
 sky = ExtResource("1_6rdsg")
+glow_enabled = true
+glow_intensity = 1.0
+glow_strength = 0.6
+glow_bloom = 1.0
+glow_blend_mode = 1
+fog_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 0.1

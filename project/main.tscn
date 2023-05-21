@@ -1,8 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://dwej3g7d13pqt"]
+[gd_scene load_steps=23 format=3 uid="uid://dl70muv4l2q2n"]
 
 [ext_resource type="Script" path="res://project/main.gd" id="1_ce2cx"]
 [ext_resource type="Script" path="res://project/hands/Hand.gd" id="2_t7plb"]
-[ext_resource type="Environment" uid="uid://2lm6orbh10jp" path="res://project/environment.tres" id="2_ufra6"]
+[ext_resource type="Environment" uid="uid://c0bsojkoh4re3" path="res://project/environment.tres" id="2_ufra6"]
 [ext_resource type="PackedScene" path="res://project/systems/interaction/interactor.tscn" id="3_eoc22"]
 [ext_resource type="Sky" uid="uid://clqf07qav41sb" path="res://project/skybox.tres" id="3_fvp0n"]
 [ext_resource type="PackedScene" uid="uid://u8o1mbyyclcv" path="res://project/ball/ball.tscn" id="4_4jdhm"]
@@ -15,8 +15,16 @@
 [ext_resource type="Script" path="res://project/paddle/paddle.gd" id="9_i11ms"]
 [ext_resource type="Script" path="res://project/FPSCounter.gd" id="12_taqnb"]
 
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_butep"]
+auto_exposure_scale = 0.01
+auto_exposure_speed = 0.25
+
+[sub_resource type="BoxMesh" id="BoxMesh_32p4t"]
+material = ExtResource("7_xignf")
+size = Vector3(0.1, 2, 5)
+
 [sub_resource type="Environment" id="Environment_xtvdd"]
-background_mode = 2
+background_mode = 1
 sky = ExtResource("3_fvp0n")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
@@ -32,29 +40,7 @@ size = Vector3(0.1, 0.1, 0.1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ncs2n"]
 size = Vector3(0.1, 0.1, 0.1)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_rwx47"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_53bjc"]
-frequency = 0.195
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_prfvb"]
-width = 515
-normalize = false
-noise = SubResource("FastNoiseLite_53bjc")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r557i"]
-albedo_color = Color(0.101961, 0, 0.137255, 1)
-metallic_specular = 0.15
-roughness = 0.9
-normal_enabled = true
-normal_scale = 0.3
-normal_texture = SubResource("NoiseTexture2D_prfvb")
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_3stli"]
-size = Vector3(0.1, 2, 5)
-
-[sub_resource type="BoxMesh" id="BoxMesh_32p4t"]
-material = ExtResource("7_xignf")
 size = Vector3(0.1, 2, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sm7e8"]
@@ -69,10 +55,54 @@ script = ExtResource("1_ce2cx")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("2_ufra6")
+camera_attributes = SubResource("CameraAttributesPractical_butep")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.727258, 0.686364, 0, -0.686364, 0.727258, 0, 0, 0)
-light_energy = 1.042
+[node name="Lights" type="Node3D" parent="."]
+
+[node name="DLight3DR" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 1.7, 2.4, 2.5)
+light_color = Color(0.780392, 0.545098, 0.803922, 1)
+light_energy = 3.0
+
+[node name="DLight3DL" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -1.7, 2.4, 2.5)
+light_color = Color(0.780392, 0.545098, 0.803922, 1)
+light_energy = 3.0
+
+[node name="DLight3DR2" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(-0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, 0.5, -0.5, 1.7, 2.4, -2.5)
+light_color = Color(0.780392, 0.545098, 0.803922, 1)
+light_energy = 3.0
+
+[node name="DLight3DL2" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(-0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, 0.5, -0.5, -1.7, 2.4, -2.5)
+light_color = Color(0.780392, 0.545098, 0.803922, 1)
+light_energy = 3.0
+
+[node name="DLight3DR3" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(0.707107, 0.5, 0.5, 0, 0.707107, -0.707107, -0.707107, 0.5, 0.5, 1.7, 0.55, 2.5)
+light_color = Color(0.780392, 0.545098, 0.803922, 1)
+light_energy = 3.0
+
+[node name="DLight3DL3" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(0.707107, -0.5, -0.5, 0, 0.707107, -0.707107, 0.707107, 0.5, 0.5, -1.7, 0.55, 2.5)
+light_color = Color(0.780392, 0.545098, 0.803922, 1)
+light_energy = 3.0
+
+[node name="DLight3DR4" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(-0.707107, 0.5, 0.5, 0, 0.707107, -0.707107, -0.707107, -0.5, -0.5, 1.7, 0.55, -2.5)
+light_color = Color(0.780392, 0.545098, 0.803922, 1)
+light_energy = 3.0
+
+[node name="DLight3DL4" type="SpotLight3D" parent="Lights"]
+transform = Transform3D(-0.707107, -0.5, -0.5, 0, 0.707107, -0.707107, 0.707107, -0.5, -0.5, -1.7, 0.55, -2.5)
+light_color = Color(0.780392, 0.545098, 0.803922, 1)
+light_energy = 3.0
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 1.5, 0)
+mesh = SubResource("BoxMesh_32p4t")
+skeleton = NodePath("../Tube/Wall1")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
@@ -113,11 +143,6 @@ collision_mask = 1024
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="XROrigin3D/RightHand/Interactor"]
 shape = SubResource("BoxShape3D_ncs2n")
-
-[node name="Ground" type="MeshInstance3D" parent="."]
-transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
-mesh = SubResource("PlaneMesh_rwx47")
-surface_material_override/0 = SubResource("StandardMaterial3D_r557i")
 
 [node name="Ball" parent="." instance=ExtResource("4_4jdhm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)

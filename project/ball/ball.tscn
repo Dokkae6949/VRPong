@@ -5,18 +5,21 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_lh6n6"]
 noise_type = 4
-frequency = 0.001
+frequency = 0.057
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_iv5rc"]
 noise = SubResource("FastNoiseLite_lh6n6")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2mdva"]
-albedo_color = Color(0.658824, 0.937255, 0.0196078, 1)
+albedo_color = Color(3, 2, 3, 1)
 metallic = 0.86
 metallic_specular = 0.75
 roughness = 0.28
+emission = Color(0.94902, 0.94902, 0.94902, 1)
 normal_enabled = true
+normal_scale = 0.2
 normal_texture = SubResource("NoiseTexture2D_iv5rc")
+disable_receive_shadows = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_ew6rn"]
 material = SubResource("StandardMaterial3D_2mdva")
